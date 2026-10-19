@@ -90,7 +90,7 @@ uvx --from git+https://github.com/<user>/btg-sheet-to-ofx btg-xls-to-ofx "Extrat
 
 This project is split into four parts:
 
-| Layer | Files | Responsibility |
+| Part | Files | Description |
 |-------|-------|----------------|
 | CLI | `src/btg_xls_to_ofx/cli.py` | argparse entry point (`btg-xls-to-ofx` script); resolves `--backend` / `--ofx-version` / `--sgml` / `--xml` / `--silent` |
 | Parsing | `src/btg_xls_to_ofx/parser.py` | Reads `.xls`/`.xlsx` (format sniffing by header), normalizes pt-BR numbers and dates, extracts account ID / balance / transactions |
