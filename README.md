@@ -72,7 +72,7 @@ btg-xls-to-ofx "Extrato_2026-01-01_a_2026-01-31_12345678901(1).xls" [output.ofx]
 ```
 
 > [!NOTE]
-> Running from an ephemeral environment with `pipx` or `uvx`:
+> It also can be used from an ephemeral environment with `pipx` or `uvx`:
 
 pipx:
 
