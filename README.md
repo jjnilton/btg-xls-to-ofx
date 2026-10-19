@@ -10,7 +10,6 @@ suitable for importing into ledger-cli, GnuCash, HomeBank, KMyMoney, etc.
 - **Python ≥ 3.10**
 - [pip](https://pypi.org/project/pip/), [pipx](https://pipx.pypa.io/), or [uv](https://docs.astral.sh/uv/)
 
-
 ### Install
 
 using `pip`:
@@ -30,10 +29,9 @@ pipx install git+https://github.com/<user>/btg-sheet-to-ofx
 
 using `uv`:
 
-
 ```sh
 uv tool install git+https://github.com/<user>/btg-sheet-to-ofx
-# optional support for OFX v2: uv tool install 'btg-xls-to-ofx[ofxtools] @ git+https://github.com/<user>/btg-sheet-to-ofx' 
+# optional support for OFX v2: uv tool install 'btg-xls-to-ofx[ofxtools] @ git+https://github.com/<user>/btg-sheet-to-ofx'
 ```
 
 ### Usage
@@ -73,8 +71,8 @@ Example usage:
 btg-xls-to-ofx "Extrato_2026-01-01_a_2026-01-31_12345678901(1).xls" [output.ofx]
 ```
 
-> [!NOTE] 
-> Running from an ephemeral environment with `pipx` or `uvx`: 
+> [!NOTE]
+> Running from an ephemeral environment with `pipx` or `uvx`:
 
 pipx:
 
@@ -89,6 +87,33 @@ uvx --from git+https://github.com/<user>/btg-sheet-to-ofx btg-xls-to-ofx "Extrat
 ```
 
 ## For developers
+
+This project is split into four parts:
+
+| Layer | Files | Responsibility |
+|-------|-------|----------------|
+| CLI | `src/btg_xls_to_ofx/cli.py` | argparse entry point (`btg-xls-to-ofx` script); resolves `--backend` / `--ofx-version` / `--sgml` / `--xml` / `--silent` |
+| Parsing | `src/btg_xls_to_ofx/parser.py` | Reads `.xls`/`.xlsx` (format sniffing by header), normalizes pt-BR numbers and dates, extracts account ID / balance / transactions |
+| Serializers | `src/btg_xls_to_ofx/serializers/plain.py` | Hand-rolled OFX v1 (SGML) output without extra dependencies |
+| | `src/btg_xls_to_ofx/serializers/ofxtools.py` | ofxtools-backed serializer; supports OFX v1 and v2; requires the `[ofxtools]` extra |
+| Anonymizer | `src/btg_xls_to_ofx/anonymize.py` | `btg-anonymize` CLI that strips real identity data, aliases payees, randomizes amounts with seeded RNG, recalculates balances |
+
+Console scripts are declared in `pyproject.toml` under `[project.scripts]`: `btg-xls-to-ofx` and `btg-anonymize`.
+
+#### Data flow
+
+```text
+statement.xls
+      │
+      ▼
+   cli.py ──► parser.py ──┬──► serializers/plain.py   ──► statement.ofx   (v1)
+   (argparse)             └──► serializers/ofxtools.py ──► statement.ofx   (v1/v2)
+
+btg-anonymize ──► anonymize.py ──► samples/*_anonymized.xlsx
+```
+
+The parser is shared by both serializers and by the anonymizer, so statement-parsing rules live in one place.
+
 
 ### Setup
 
