@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "btg-xls-to-ofx"
+version = "0.1.0"
+description = "Convert BTG Pactual checking account statements (.xls/.xlsx) to OFX"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-only"
+authors = [{ name = "jj" }]
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial :: Accounting",
+]
+dependencies = [
+    "xlrd>=2.0",
+    "openpyxl>=3.1",
+]
+
+[project.optional-dependencies]
+ofxtools = ["ofxtools>=0.9"]
+dev = [
+    "pytest>=8.0",
+    "xlwt>=1.3",
+    "vermin>=1.6",
+    "ruff",
+    "pre-commit",
+    "build",
+    "twine",
+]
+
+[project.scripts]
+btg-xls-to-ofx = "btg_xls_to_ofx.cli:main"
+btg-anonymize = "btg_xls_to_ofx.anonymize:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+ignore = ["E501"]
