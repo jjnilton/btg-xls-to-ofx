@@ -211,6 +211,12 @@ The suite includes unit tests (`test_parser.py`), integration tests
 against the anonymized samples (`test_integration.py`), end-to-end CLI
 tests (`test_e2e.py`), and anonymizer tests (`test_anonymize.py`).
 
+#### Test coverage
+
+Test coverage is measured with [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/).
+
+A coverage threshold of **90%** is enforced on the full test suite.
+
 ### Version checks
 
 The Minimum Python version is checked with [vermin](https://github.com/netromdk/vermin):
