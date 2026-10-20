@@ -48,3 +48,10 @@ target-version = "py310"
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "W"]
 ignore = ["E501"]
+
+# disable experimental warning
+# [tool.uv]
+# preview-features = ["malware-check", "audit-command"]
+
+[tool.uv.audit]
+malware-check = true
