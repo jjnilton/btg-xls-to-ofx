@@ -33,7 +33,6 @@ dev = [
     "ruff",
     "pre-commit",
     "build",
-    "twine",
 ]
 
 [project.scripts]
