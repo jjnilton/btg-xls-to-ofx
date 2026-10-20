@@ -165,7 +165,7 @@ pre-commit install
 Or with uv:
 
 ```sh
-uv run pre-commit install
+uv run pre-commit install # needs `uv sync --all-extras` first
 ```
 
 Useful commands:
