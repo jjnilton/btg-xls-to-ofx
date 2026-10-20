@@ -16,22 +16,22 @@ using `pip`:
 
 ```sh
 python -m venv .venv && source .venv/bin/activate
-pip install --user git+https://github.com/<user>/btg-sheet-to-ofx
-# optional support for OFX v2: pip install --user git+https://github.com/<user>/btg-sheet-to-ofx#egg=btg-xls-to-ofx[ofxtools]
+pip install --user git+https://github.com/jjnilton/btg-sheet-to-ofx
+# optional support for OFX v2: pip install --user git+https://github.com/jjnilton/btg-sheet-to-ofx#egg=btg-xls-to-ofx[ofxtools]
 ```
 
 using `pipx`:
 
 ```sh
-pipx install git+https://github.com/<user>/btg-sheet-to-ofx
-# optional support for OFX v2: pipx install 'git+https://github.com/<user>/btg-sheet-to-ofx#egg=btg-xls-to-ofx[ofxtools]'
+pipx install git+https://github.com/jjnilton/btg-sheet-to-ofx
+# optional support for OFX v2: pipx install 'git+https://github.com/jjnilton/btg-sheet-to-ofx#egg=btg-xls-to-ofx[ofxtools]'
 ```
 
 using `uv`:
 
 ```sh
-uv tool install git+https://github.com/<user>/btg-sheet-to-ofx
-# optional support for OFX v2: uv tool install 'btg-xls-to-ofx[ofxtools] @ git+https://github.com/<user>/btg-sheet-to-ofx'
+uv tool install git+https://github.com/jjnilton/btg-sheet-to-ofx
+# optional support for OFX v2: uv tool install 'btg-xls-to-ofx[ofxtools] @ git+https://github.com/jjnilton/btg-sheet-to-ofx'
 ```
 
 ### Usage
@@ -77,13 +77,13 @@ btg-xls-to-ofx "Extrato_2026-01-01_a_2026-01-31_12345678901(1).xls" [output.ofx]
 pipx:
 
 ```sh
-pipx run --spec git+https://github.com/<user>/btg-sheet-to-ofx btg-xls-to-ofx "Extrato_....xls" [output.ofx]
+pipx run --spec git+https://github.com/jjnilton/btg-sheet-to-ofx btg-xls-to-ofx "Extrato_....xls" [output.ofx]
 ```
 
 uv:
 
 ```sh
-uvx --from git+https://github.com/<user>/btg-sheet-to-ofx btg-xls-to-ofx "Extrato_....xls" [output.ofx]
+uvx --from git+https://github.com/jjnilton/btg-sheet-to-ofx btg-xls-to-ofx "Extrato_....xls" [output.ofx]
 ```
 
 ## For developers
@@ -120,7 +120,7 @@ The parser is shared by both serializers and by the anonymizer, so statement-par
 Clone this repository and activate the virtual environment:
 
 ```sh
-git clone $this_repo && cd btg-sheet-to-ofx
+git clone https://github.com/jjnilton/btg-sheet-to-ofx btg-xls-to-ofx && cd btg-sheet-to-ofx
 python -m venv .venv && source .venv/bin/activate
 btg-xls-to-ofx # run the program
 ```
