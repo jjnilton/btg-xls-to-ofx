@@ -93,6 +93,8 @@ uvx --from git+https://github.com/jjnilton/btg-xls-to-ofx btg-xls-to-ofx "Extrat
 - [uv](https://docs.astral.sh/uv/) (tested with uv 0.13.4)
 - [EditorConfig](https://editorconfig.org/)
 
+### Architecture
+
 This project is split into four parts:
 
 | Part | Files | Description |
