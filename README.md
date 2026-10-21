@@ -1,4 +1,4 @@
-# btg-xls-to-ofx
+# BTG XLS to OFX
 
 Convert BTG Pactual checking account statements (.xls/.xlsx) to OFX,
 suitable for importing into ledger-cli, GnuCash, HomeBank, KMyMoney, etc.
@@ -8,7 +8,7 @@ suitable for importing into ledger-cli, GnuCash, HomeBank, KMyMoney, etc.
 ### Requirements
 
 - **Python ≥ 3.10**
-- [pip](https://pypi.org/project/pip/), [pipx](https://pipx.pypa.io/), or [uv](https://docs.astral.sh/uv/)
+- [pip](https://pypi.org/project/pip/), [pipx](https://pipx.pypa.io/), or [uv](https://docs.astral.sh/uv/) (for installing the dependencies)
 
 ### Install
 
@@ -88,6 +88,11 @@ uvx --from git+https://github.com/jjnilton/btg-xls-to-ofx btg-xls-to-ofx "Extrat
 
 ## For developers
 
+### Requirements
+
+- [uv](https://docs.astral.sh/uv/) (tested with uv 0.13.4)
+- [EditorConfig](https://editorconfig.org/)
+
 This project is split into four parts:
 
 | Part | Files | Description |
@@ -121,27 +126,7 @@ Clone this repository and activate the virtual environment:
 
 ```sh
 git clone https://github.com/jjnilton/btg-xls-to-ofx btg-xls-to-ofx && cd btg-xls-to-ofx
-python -m venv .venv && source .venv/bin/activate
-btg-xls-to-ofx # run the program
-```
-
-Alternatively, using `pip`:
-
-> [!NOTE] `[dev,ofxtools]`, are optional dependency sets
-declared in `pyproject.toml`; `-e` installs the project in editable
-mode so source edits take effect without reinstalling.
-
-```sh
-python -m venv .venv && source .venv/bin/activate
-pip install -e '.[dev,ofxtools]'
-
-```
-
-Or `uv`:
-
-```sh
 uv sync --all-extras          # create .venv and install everything from uv.lock
-uv run btg-xls-to-ofx         # run the program
 ```
 
 ### Pre-commit checks
@@ -155,14 +140,6 @@ All hooks are `local` and run through
 `uv run --frozen`, so tool versions come from `uv.lock`.
 
 Setting it up:
-
-In the virtual environment:
-
-```
-pre-commit install
-```
-
-Or with uv:
 
 ```sh
 uv run pre-commit install # needs `uv sync --all-extras` first
@@ -180,22 +157,18 @@ uv run pre-commit run ruff-check    # run a single hook
 Lint and format with [ruff](https://github.com/astral-sh/ruff):
 
 ```sh
-ruff check src tests          # report problems
-ruff check --fix src tests    # auto-fix what's safe
-ruff format src tests         # format code (ruff format --check to verify only)
+uv run ruff check src tests          # report problems
+uv run ruff check --fix src tests    # auto-fix what's safe
+uv run ruff format src tests         # format code (ruff format --check to verify only)
 ```
 
 ### Running tests
 
 Run the test suite with [pytest](https://docs.pytest.org/en/stable/).
 
-From a virtual environment:
+Test coverage is measured with [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/).
 
-```sh
-pytest
-```
-
-Or with `uv`:
+A coverage threshold of **90%** is enforced on the full test suite.
 
 ```sh
 uv run pytest
@@ -211,18 +184,12 @@ The suite includes unit tests (`test_parser.py`), integration tests
 against the anonymized samples (`test_integration.py`), end-to-end CLI
 tests (`test_e2e.py`), and anonymizer tests (`test_anonymize.py`).
 
-#### Test coverage
-
-Test coverage is measured with [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/).
-
-A coverage threshold of **90%** is enforced on the full test suite.
-
 ### Version checks
 
 The Minimum Python version is checked with [vermin](https://github.com/netromdk/vermin):
 
 ```sh
-vermin --eval-annotations -t=3.10- src  # fails if code needs > 3.10
+uv run vermin --eval-annotations -t=3.10- src  # fails if code needs > 3.10
 ```
 
 While vermin helps with static heuristic; the authoritative check is running the
@@ -234,7 +201,7 @@ uv pip install -p /tmp/venv310 '.' 'pytest' 'xlwt' 'ofxtools'
 /tmp/venv310/bin/python -m pytest tests
 ```
 
-### Generating anonymized statements
+## Generating anonymized statements
 
 To share a sheet/statement file without real data, a tool `btg-anonymize`
 is included. It replaces personal/identifiable data with placeholders.
